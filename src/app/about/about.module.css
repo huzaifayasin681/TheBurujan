@@ -1,0 +1,77 @@
+.visionSection {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.visionGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.visionCard {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 2.5rem;
+    text-align: center;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+.visionCard:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.iconWrapper {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 210, 170, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1.5rem;
+    color: var(--primary);
+}
+
+.teamGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.teamCard {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.teamImg {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    background: #2d3748;
+}
+
+.teamInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+    padding: 2rem 1rem 1rem;
+    text-align: center;
+}
+
+.teamName {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.teamRole {
+    color: var(--primary);
+    font-size: 0.9rem;
+}

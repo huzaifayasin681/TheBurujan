@@ -1,0 +1,115 @@
+.featureList {
+    list-style: none;
+    margin-top: 1.5rem;
+}
+
+.featureList li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.checkIcon {
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.pricingSection {
+    background: rgba(11, 17, 33, 0.5);
+}
+
+.pricingGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.priceCard {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.priceCard:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.priceHeader {
+    padding: 2rem;
+    background: rgba(0, 210, 170, 0.1);
+    text-align: center;
+}
+
+.priceTitle {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.priceCost {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.priceBody {
+    padding: 2rem;
+    flex: 1;
+}
+
+.priceBtn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: #000;
+    font-weight: 700;
+    border-radius: 6px;
+    transition: background 0.3s;
+}
+
+.priceBtn:hover {
+    background: var(--primary-hover);
+}
+
+.bookingForm {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+}
+
+.label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.input,
+.textarea {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    color: #fff;
+    font-family: inherit;
+}
+
+.input:focus,
+.textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
