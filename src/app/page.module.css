@@ -219,3 +219,10 @@
     gap: 3rem;
   }
 }
+
+@media (max-width: 480px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

@@ -113,4 +113,10 @@
     .grid {
         grid-template-columns: 1fr;
     }
+
+    .bottom {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
 }
