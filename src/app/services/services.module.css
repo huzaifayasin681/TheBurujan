@@ -17,42 +17,172 @@
 }
 
 .pricingSection {
-    background: rgba(11, 17, 33, 0.5);
+    background: transparent;
 }
 
-.pricingGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
+.processTree {
+    position: relative;
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 2rem 0;
 }
 
-.priceCard {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s;
+/* The Trunk (Center Line) */
+.processTree::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--line-color);
+    transform: translateX(-50%);
+}
+
+.stepNode {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+    position: relative;
+    width: 100%;
 }
 
-.priceCard:hover {
+.stepNode:last-child {
+    margin-bottom: 0;
+}
+
+.stepContent {
+    width: 45%;
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 32px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+.stepContent:hover {
     transform: translateY(-5px);
-    border-color: var(--primary);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* The Number Bubble (Node) */
+.stepNumber {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 64px;
+    background: var(--foreground);
+    color: var(--background);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+    z-index: 2;
+    border: 8px solid var(--background);
+    /* "Cut" the line visually */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Zig-Zag Logic */
+.stepNode:nth-child(odd) {
+    flex-direction: row;
+}
+
+.stepNode:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+/* Connecting Branches (Optional lines from center to card) */
+.stepContent::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 2px;
+    background: var(--line-color);
+}
+
+.stepNode:nth-child(odd) .stepContent::after {
+    right: -40px;
+}
+
+.stepNode:nth-child(even) .stepContent::after {
+    left: -40px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .processTree::before {
+        left: 32px;
+    }
+
+    .stepNode {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-left: 80px;
+        position: relative;
+    }
+
+    .stepNode:nth-child(even) {
+        flex-direction: column;
+    }
+
+    .stepContent {
+        width: 100%;
+    }
+
+    .stepNumber {
+        left: 32px;
+        transform: translateX(-50%);
+    }
+
+    .stepNode:nth-child(odd) .stepContent::after,
+    .stepNode:nth-child(even) .stepContent::after {
+        display: none;
+        /* Hide horizontal connectors on mobile */
+    }
 }
 
 .priceHeader {
-    padding: 2rem;
-    background: rgba(0, 210, 170, 0.1);
+    padding: 0;
+    background: transparent;
     text-align: center;
+    border: none;
+    margin-bottom: 2rem;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The distinct 01, 02, 03 Number */
+.priceHeader span {
+    font-size: 6rem !important;
+    /* Force override inline styles if needed, or better, we remove inline styles in next step */
+    font-weight: 800 !important;
+    color: var(--number-watermark) !important;
+    line-height: 1;
+    display: block;
+    margin-bottom: -1rem;
+    /* Overlap with title slightly */
+    z-index: -1;
 }
 
 .priceTitle {
-    font-size: 1.5rem;
-    color: #fff;
+    font-size: 1.75rem;
+    color: var(--foreground);
     margin-bottom: 0.5rem;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
 }
 
 .priceCost {
@@ -69,22 +199,23 @@
 .priceBtn {
     width: 100%;
     padding: 1rem;
-    background: var(--primary);
-    color: #000;
-    font-weight: 700;
-    border-radius: 6px;
+    background: var(--foreground);
+    color: var(--background);
+    font-weight: 600;
+    border-radius: 999px;
     transition: background 0.3s;
 }
 
 .priceBtn:hover {
-    background: var(--primary-hover);
+    background: #333;
 }
 
 .bookingForm {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--card-bg);
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: var(--border-radius);
     border: 1px solid var(--card-border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
 .formGroup {
@@ -94,22 +225,25 @@
 .label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #fff;
+    color: var(--foreground);
+    font-weight: 500;
+    font-size: 0.9rem;
 }
 
 .input,
 .textarea {
     width: 100%;
     padding: 0.8rem;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    color: #fff;
+    background: var(--input-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--foreground);
     font-family: inherit;
 }
 
 .input:focus,
 .textarea:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: var(--foreground);
+    background: var(--card-bg);
 }

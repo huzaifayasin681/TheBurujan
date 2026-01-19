@@ -1,9 +1,25 @@
 "use client";
 
+import { motion } from 'framer-motion';
 import PageHeader from '@/components/PageHeader';
 import styles from './portfolio.module.css';
 import Link from 'next/link';
 import { Layout, ShieldAlert, GraduationCap, CreditCard, Users, Briefcase, BrainCircuit, Code2, Terminal } from 'lucide-react';
+
+const fadeInUp = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+};
 
 const projects = [
     {
@@ -78,40 +94,71 @@ export default function PortfolioPage() {
                         A showcase of our engineered systems. From secure backend infrastructures to fluid mobile ecosystems, we build technology that drives authority.
                     </p>
 
-                    <div className={styles.grid}>
+                    <motion.div
+                        className={styles.grid}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
                         {projects.map((project, index) => (
-                            <div key={index} className={styles.card}>
-                                <div className={styles.imageWrapper} style={{ background: `linear-gradient(135deg, ${project.color}22, ${project.color}11)` }}>
-                                    <span className={styles.category} style={{ background: project.color, color: '#fff' }}>{project.category}</span>
+                            <motion.div
+                                key={index}
+                                className={styles.card}
+                                style={{ border: 'none', background: 'var(--card-bg)', borderRadius: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', overflow: 'hidden' }}
+                                variants={fadeInUp}
+                                whileHover={{ y: -10, transition: { duration: 0.2 } }}
+                            >
+                                <div className={styles.imageWrapper} style={{
+                                    background: `${project.color}15`, // Very light opacity of brand color
+                                    padding: '3rem',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    position: 'relative'
+                                }}>
+                                    <span className={styles.category} style={{
+                                        position: 'absolute',
+                                        top: '1.5rem',
+                                        left: '1.5rem',
+                                        background: 'var(--card-bg)',
+                                        color: project.color,
+                                        padding: '0.5rem 1rem',
+                                        borderRadius: '999px',
+                                        fontWeight: '600',
+                                        fontSize: '0.8rem',
+                                        boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
+                                    }}>{project.category}</span>
 
-                                    <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: project.color }}>
-                                        <project.icon size={64} strokeWidth={1.5} />
+                                    <div style={{ color: project.color, transform: 'scale(1.2)' }}>
+                                        <project.icon size={80} strokeWidth={1} />
                                     </div>
                                 </div>
-                                <div className={styles.content}>
-                                    <h3 className={styles.title} style={{ minHeight: '3rem' }}>{project.title}</h3>
-                                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem', lineHeight: '1.6', minHeight: '4.5rem' }}>
+                                <div className={styles.content} style={{ padding: '2.5rem' }}>
+                                    <h3 className={styles.title} style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--foreground)', marginBottom: '1rem' }}>{project.title}</h3>
+                                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginBottom: '2rem', lineHeight: '1.7' }}>
                                         {project.description}
                                     </p>
 
-                                    <div className={styles.meta} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1rem' }}>
+                                    <div className={styles.meta} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', paddingTop: '0', borderTop: 'none' }}>
                                         {project.stack.map((tech, i) => (
                                             <span key={i} style={{
-                                                fontSize: '0.75rem',
-                                                background: 'rgba(255,255,255,0.05)',
-                                                padding: '0.2rem 0.6rem',
-                                                borderRadius: '4px',
-                                                border: '1px solid rgba(255,255,255,0.1)',
-                                                color: 'var(--text-secondary)'
+                                                fontSize: '0.8rem',
+                                                background: 'var(--card-bg-hover)',
+                                                padding: '0.4rem 1rem',
+                                                borderRadius: '8px',
+                                                fontWeight: '500',
+                                                color: 'var(--text-secondary)',
+                                                border: '1px solid var(--line-color)'
                                             }}>
                                                 {tech}
                                             </span>
                                         ))}
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
             </section>
         </main>

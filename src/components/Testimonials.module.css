@@ -11,24 +11,25 @@
 }
 
 .card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-    border-left: 3px solid var(--primary);
+    background: var(--card-bg);
+    /* Light grey/off-white */
+    border-left: 3px solid var(--accent);
     padding: 3rem;
     position: relative;
     transition: all 0.4s ease;
+    border-radius: var(--border-radius);
 }
 
 .card:hover {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+    background: var(--card-bg-hover);
     transform: translateX(10px);
-    /* Slight shift to right instead of up */
 }
 
 .quoteSymbol {
     font-family: serif;
     font-size: 5rem;
     line-height: 1;
-    color: rgba(212, 175, 55, 0.15);
+    color: var(--number-watermark);
     position: absolute;
     top: 1.5rem;
     left: 2rem;
@@ -38,29 +39,29 @@
 .text {
     font-size: 1.15rem;
     line-height: 1.8;
-    color: #cbd5e0;
+    color: var(--text-secondary);
     margin-bottom: 2.5rem;
     position: relative;
     z-index: 2;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .author {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid var(--line-color);
     padding-top: 1.5rem;
 }
 
 .name {
-    color: #fff;
+    color: var(--text-primary);
     font-size: 1.1rem;
     font-weight: 700;
     margin-bottom: 0.25rem;
 }
 
 .role {
-    color: var(--primary);
+    color: var(--accent);
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 1.5px;

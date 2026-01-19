@@ -2,12 +2,16 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 import styles from './Navbar.module.css';
 import { Menu, X } from 'lucide-react';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,24 +31,33 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   return (
-    <nav className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}>
-      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <motion.nav
+      className={`${styles.navbar} ${scrolled ? styles.scrolled : ''}`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', width: '100%' }}>
         <Link href="/" className={styles.logo} onClick={() => setMobileOpen(false)}>
           <div className={styles.logoBox}>B</div>
           <span>TheBurujan</span>
         </Link>
 
         <ul className={`${styles.navLinks} ${mobileOpen ? styles.open : ''}`}>
-          <li><Link href="/" className={styles.navLink} onClick={() => setMobileOpen(false)}>Home</Link></li>
-          <li><Link href="/about" className={styles.navLink} onClick={() => setMobileOpen(false)}>About us</Link></li>
-          <li><Link href="/services" className={styles.navLink} onClick={() => setMobileOpen(false)}>Services</Link></li>
-          <li><Link href="/portfolio" className={styles.navLink} onClick={() => setMobileOpen(false)}>Portfolio</Link></li>
-          <li><Link href="/contact" className={styles.navLink} onClick={() => setMobileOpen(false)}>Contact us</Link></li>
+          <li><Link href="/" className={`${styles.navLink} ${pathname === '/' ? styles.active : ''}`} onClick={() => setMobileOpen(false)}>Home</Link></li>
+          <li><Link href="/about" className={`${styles.navLink} ${pathname === '/about' ? styles.active : ''}`} onClick={() => setMobileOpen(false)}>About us</Link></li>
+          <li><Link href="/services" className={`${styles.navLink} ${pathname === '/services' ? styles.active : ''}`} onClick={() => setMobileOpen(false)}>Services</Link></li>
+          <li><Link href="/portfolio" className={`${styles.navLink} ${pathname === '/portfolio' ? styles.active : ''}`} onClick={() => setMobileOpen(false)}>Portfolio</Link></li>
+          <li><Link href="/contact" className={`${styles.navLink} ${pathname === '/contact' ? styles.active : ''}`} onClick={() => setMobileOpen(false)}>Contact us</Link></li>
 
           <li className={styles.mobileCTA}>
             <Link href="/contact" className={styles.ctaButton} onClick={() => setMobileOpen(false)}>
               Get Started
             </Link>
+          </li>
+
+          <li className={styles.themeToggleItem}>
+            <ThemeToggle />
           </li>
         </ul>
 
@@ -58,6 +71,6 @@ export default function Navbar() {
           {mobileOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
-    </nav>
+    </motion.nav>
   );
 }

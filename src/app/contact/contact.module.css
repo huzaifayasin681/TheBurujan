@@ -6,17 +6,19 @@
 }
 
 .contactCard {
-    background: linear-gradient(135deg, rgba(23, 33, 58, 0.8) 0%, rgba(15, 25, 45, 0.8) 100%);
+    background: var(--card-bg);
     padding: 2rem;
-    border-radius: 12px;
+    border-radius: var(--border-radius);
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
     transition: all 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
 }
 
 .contactCard:hover {
     border-color: var(--primary);
     transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 .iconBox {
@@ -27,28 +29,40 @@
     justify-content: center;
     align-items: center;
     color: var(--primary);
-    /* border: 1px solid var(--primary); */
-    /* border-radius: 50%; */
 }
 
-/* Specific styling for the active/highlighted card if needed */
+/* Specific styling for the active/highlighted card */
 .contactCard.active {
-    background: var(--primary);
-    color: #000;
+    background: var(--foreground);
+    color: var(--background);
+    border: 1px solid var(--foreground);
 }
 
 .contactCard.active .iconBox {
-    color: #000;
+    color: var(--background);
+}
+
+/* Dark Mode Override for Active Card to avoid bright white box */
+:global(.dark) .contactCard.active {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--primary);
+    color: var(--foreground);
+}
+
+:global(.dark) .contactCard.active .iconBox {
+    color: var(--primary);
 }
 
 .messageSection {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-    background: #0f1623;
-    border-radius: 12px;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    margin-top: 4rem;
 }
 
 .formBox {
@@ -58,33 +72,49 @@
 .mapBox {
     position: relative;
     min-height: 400px;
-    background: #2d3748;
+    background: var(--card-bg-hover);
 }
 
 .inputField {
     width: 100%;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 6px;
-    color: #fff;
+    background: var(--input-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--foreground);
     margin-bottom: 1rem;
+    font-size: 0.95rem;
 }
 
 .inputField:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: var(--foreground);
+    background: var(--background);
 }
 
 .submitBtn {
-    background: var(--primary);
-    color: #000;
+    background: var(--foreground);
+    color: var(--background);
     padding: 1rem 2rem;
-    font-weight: 700;
-    border-radius: 6px;
+    font-weight: 600;
+    border-radius: 999px;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    transition: all 0.3s;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.submitBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background: var(--primary);
+    color: #000;
+}
+
+:global(.dark) .submitBtn:hover {
+    color: #000;
 }
 
 @media (max-width: 768px) {

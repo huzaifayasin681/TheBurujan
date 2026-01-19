@@ -1,121 +1,99 @@
 :root {
-  --background: #05080F;
-  /* Obsidian Black */
-  --foreground: #ffffff;
-  --primary: #D4AF37;
-  /* Burnished Gold */
-  --primary-hover: #C5A028;
-  --secondary: #718096;
-  /* Steel Grey */
-  --accent: #2D3748;
-  /* Darker Grey/Structure */
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --card-border: rgba(212, 175, 55, 0.2);
-  /* Subtle Gold Border */
-  --text-primary: #ffffff;
-  --text-secondary: #A0AEC0;
-  --font-family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --background: #ffffff;
+    --foreground: #171717;
+    --text-primary: #171717;
+    --text-secondary: #666666;
+    --card-bg: #f9f9f9;
+    --card-bg-hover: #f0f0f0;
+    --card-border: #e5e5e5;
+    --primary: #D4AF37;
+    /* Gold */
+    --secondary: #00D2AA;
+    /* Teal */
+    --accent: #FF6B00;
+    /* Orange */
+    --border-radius: 12px;
+    --line-color: rgba(0, 0, 0, 0.05);
+    --number-watermark: rgba(0, 0, 0, 0.03);
+    --input-bg: #f9f9f9;
+}
+
+.dark {
+    --background: #050505;
+    --foreground: #ffffff;
+    --text-primary: #ffffff;
+    --text-secondary: #a3a3a3;
+    --card-bg: #111111;
+    --card-bg-hover: #1a1a1a;
+    --card-border: #333333;
+    --line-color: rgba(255, 255, 255, 0.1);
+    --number-watermark: rgba(255, 255, 255, 0.03);
+    --input-bg: #222;
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  background-color: var(--background);
-  color: var(--text-primary);
-  font-family: var(--font-family-sans);
-  scroll-behavior: smooth;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+body {
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: color 0.3s ease, background 0.3s ease;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  font-family: inherit;
-}
-
+/* Utilities */
 .container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-/* Utilities for glassmorphism */
-.glass {
-  background: var(--card-bg);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out forwards;
-}
-
-.animate-slide-up {
-  animation: slideUp 0.8s ease-out forwards;
-}
-
-/* Section Common */
 .section-padding {
-  padding: 5rem 0;
+    padding: 6rem 0;
 }
 
 .section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  background: linear-gradient(90deg, #fff, #a0aec0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    color: var(--foreground);
 }
 
 .section-subtitle {
-  color: var(--primary);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
-  display: block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    color: var(--primary);
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+}
+
+.dark .glass-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }

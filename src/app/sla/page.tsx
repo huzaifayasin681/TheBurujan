@@ -23,7 +23,7 @@ export default function SLAPage() {
                         </p>
 
                         <div style={{ marginBottom: '2.5rem' }}>
-                            <h3 style={{ color: '#fff', fontSize: '1.4rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <h3 style={{ color: 'var(--foreground)', fontSize: '1.4rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                 <Server size={20} color="var(--primary)" /> 1. Uptime Commitment
                             </h3>
                             <p style={{ marginBottom: '1rem', lineHeight: '1.7' }}>
@@ -33,7 +33,7 @@ export default function SLAPage() {
                         </div>
 
                         <div style={{ marginBottom: '2.5rem' }}>
-                            <h3 style={{ color: '#fff', fontSize: '1.4rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <h3 style={{ color: 'var(--foreground)', fontSize: '1.4rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                 <Clock size={20} color="var(--primary)" /> 2. Response Times
                             </h3>
                             <p style={{ marginBottom: '1rem', lineHeight: '1.7' }}>
@@ -42,24 +42,24 @@ export default function SLAPage() {
                             <div style={{ overflowX: 'auto', marginBottom: '1rem' }}>
                                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem', minWidth: '500px' }}>
                                     <thead>
-                                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', textAlign: 'left' }}>
-                                            <th style={{ padding: '0.75rem', color: '#fff' }}>Severity Level</th>
-                                            <th style={{ padding: '0.75rem', color: '#fff' }}>Description</th>
-                                            <th style={{ padding: '0.75rem', color: '#fff' }}>Response Time</th>
+                                        <tr style={{ borderBottom: '1px solid var(--line-color)', textAlign: 'left' }}>
+                                            <th style={{ padding: '0.75rem', color: 'var(--foreground)' }}>Severity Level</th>
+                                            <th style={{ padding: '0.75rem', color: 'var(--foreground)' }}>Description</th>
+                                            <th style={{ padding: '0.75rem', color: 'var(--foreground)' }}>Response Time</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                        <tr style={{ borderBottom: '1px solid var(--line-color)' }}>
                                             <td style={{ padding: '0.75rem', color: 'var(--primary)' }}>Critical (L1)</td>
                                             <td style={{ padding: '0.75rem' }}>System Down / Core Feature Broken</td>
                                             <td style={{ padding: '0.75rem' }}>&lt; 4 Hours</td>
                                         </tr>
-                                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                        <tr style={{ borderBottom: '1px solid var(--line-color)' }}>
                                             <td style={{ padding: '0.75rem', color: '#ffd700' }}>High (L2)</td>
                                             <td style={{ padding: '0.75rem' }}>Performance Degradation</td>
                                             <td style={{ padding: '0.75rem' }}>&lt; 24 Hours</td>
                                         </tr>
-                                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                                        <tr style={{ borderBottom: '1px solid var(--line-color)' }}>
                                             <td style={{ padding: '0.75rem' }}>Standard (L3)</td>
                                             <td style={{ padding: '0.75rem' }}>Minor Bugs / Content Updates</td>
                                             <td style={{ padding: '0.75rem' }}>&lt; 48 Hours</td>
@@ -70,7 +70,7 @@ export default function SLAPage() {
                         </div>
 
                         <div style={{ marginBottom: '2.5rem' }}>
-                            <h3 style={{ color: '#fff', fontSize: '1.4rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            <h3 style={{ color: 'var(--foreground)', fontSize: '1.4rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                 <LifeBuoy size={20} color="var(--primary)" /> 3. Maintenance Windows
                             </h3>
                             <p style={{ marginBottom: '1rem', lineHeight: '1.7' }}>

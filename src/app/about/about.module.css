@@ -2,37 +2,186 @@
     background: rgba(255, 255, 255, 0.02);
 }
 
+/* Interactive Pillars Layout */
 .visionGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
     margin-top: 3rem;
+}
+
+@media (min-width: 900px) {
+    .visionGrid {
+        flex-direction: row;
+        align-items: stretch;
+        margin-top: 4rem;
+        min-height: 500px;
+    }
 }
 
 .visionCard {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
-    padding: 2.5rem;
-    text-align: center;
-    border-radius: 12px;
-    transition: all 0.3s;
+    padding: 2rem;
+    border-radius: 20px;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    cursor: default;
+    min-height: 300px;
+    /* Ensure content area on mobile */
 }
 
+@media (min-width: 900px) {
+    .visionCard {
+        padding: 2.5rem;
+        min-height: auto;
+    }
+}
+
+/* Hover Effect: Expand the card (Desktop Only for sizing) */
 .visionCard:hover {
-    transform: translateY(-5px);
+    background: var(--card-bg-hover);
     border-color: var(--primary);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
+@media (min-width: 900px) {
+    .visionCard:hover {
+        flex: 2.5;
+        /* Only grow on desktop row layout */
+    }
+}
+
+.visionCard h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--foreground);
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s ease;
+    white-space: normal;
+}
+
+@media (min-width: 900px) {
+    .visionCard h3 {
+        font-size: 1.75rem;
+        white-space: nowrap;
+    }
+}
+
+.visionCard p {
+    position: relative;
+    z-index: 2;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    /* Mobile: Always visible */
+    opacity: 1;
+    max-height: none;
+    transform: none;
+    margin-top: 0.5rem;
+    transition: all 0.5s ease;
+}
+
+@media (min-width: 900px) {
+    .visionCard p {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        transform: translateY(20px);
+        margin-top: 0;
+    }
+
+    .visionCard:hover p {
+        opacity: 1;
+        max-height: 200px;
+        transform: translateY(0);
+        margin-top: 1rem;
+    }
+
+    .visionCard:hover h3 {
+        transform: translateY(0);
+        color: var(--primary);
+    }
+}
+
+
+/* Large background number/watermark */
+.visionCard::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 8rem;
+    font-weight: 900;
+    color: var(--number-watermark);
+    transition: all 0.4s ease;
+    line-height: 1;
+    z-index: 0;
+}
+
+.visionCard:nth-child(1)::after {
+    content: '01';
+}
+
+.visionCard:nth-child(2)::after {
+    content: '02';
+}
+
+.visionCard:nth-child(3)::after {
+    content: '03';
+}
+
+.visionCard:hover::after {
+    color: rgba(212, 175, 55, 0.1);
+    /* Gold tint on hover */
+    transform: translateY(-10px) scale(1.1);
+}
+
+/* Top accent line */
+.visionCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+}
+
+.visionCard:hover::before {
+    transform: scaleX(1);
+}
+
+/* Icon Styling - Floating Top Left */
 .iconWrapper {
+    position: absolute;
+    top: 30px;
+    left: 30px;
     width: 60px;
     height: 60px;
-    background: rgba(0, 210, 170, 0.1);
-    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 auto 1.5rem;
     color: var(--primary);
+    transition: all 0.4s ease;
+    z-index: 2;
+}
+
+.visionCard:hover .iconWrapper {
+    background: var(--primary);
+    color: #000;
+    transform: rotate(-10deg);
 }
 
 .teamGrid {

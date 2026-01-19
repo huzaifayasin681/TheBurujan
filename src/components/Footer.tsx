@@ -1,10 +1,19 @@
+"use client";
+
 import Link from 'next/link';
 import { Layers, MapPin, Mail, Linkedin, MessageCircle, ArrowRight, Globe } from 'lucide-react';
+import { motion } from 'framer-motion';
 import styles from './Footer.module.css';
 
 export default function Footer() {
     return (
-        <footer className={styles.footer}>
+        <motion.footer
+            className={styles.footer}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+        >
             <div className="container">
                 <div className={styles.grid}>
                     {/* Column 1: The Brand */}
@@ -91,6 +100,6 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
-        </footer>
+        </motion.footer>
     );
 }

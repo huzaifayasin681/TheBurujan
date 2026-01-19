@@ -44,14 +44,14 @@
 
 .title {
     font-size: 1.25rem;
-    color: #fff;
+    color: var(--foreground);
     margin-bottom: 1rem;
     line-height: 1.4;
     font-weight: 700;
 }
 
 .meta {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid var(--line-color);
     padding-top: 1rem;
     display: flex;
     justify-content: space-between;

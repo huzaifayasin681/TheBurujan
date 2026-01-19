@@ -1,9 +1,25 @@
 "use client";
 
+import { motion } from 'framer-motion';
 import PageHeader from '@/components/PageHeader';
 import styles from './about.module.css';
 import Image from 'next/image';
 import { Target, Eye, Flag } from 'lucide-react';
+
+const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2
+        }
+    }
+};
 
 
 
@@ -19,7 +35,12 @@ export default function AboutPage() {
             <section className="section-padding">
                 <div className="container">
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'center' }}>
-                        <div>
+                        <motion.div
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            variants={fadeInUp}
+                        >
                             <span className="section-subtitle">The Origin Story</span>
                             <h2 className="section-title">Talent is universal. Opportunity is not. We engineered our own.</h2>
                             <div style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
@@ -43,16 +64,22 @@ export default function AboutPage() {
                                     <p style={{ color: 'var(--text-secondary)' }}>Commitment</p>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div style={{ position: 'relative', height: '400px', borderRadius: '12px', overflow: 'hidden' }}>
+                        <motion.div
+                            style={{ position: 'relative', height: '400px', borderRadius: '12px', overflow: 'hidden' }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <Image
                                 src="/images/about-hero.png"
                                 alt="Our Team"
                                 fill
                                 style={{ objectFit: 'cover' }}
                             />
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -65,29 +92,35 @@ export default function AboutPage() {
                         <h2 className="section-title">Values that Build Empires</h2>
                     </div>
 
-                    <div className={styles.visionGrid}>
-                        <div className={styles.visionCard}>
+                    <motion.div
+                        className={styles.visionGrid}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        <motion.div className={styles.visionCard} variants={fadeInUp}>
                             <div className={styles.iconWrapper}><Eye size={30} /></div>
                             <h3>The Vision</h3>
-                            <p style={{ marginTop: '1rem', color: 'var(--text-secondary)' }}>
-                                To become the premier 'Digital Foundry' of the region—a place where chaotic ideas are forged into unbreakable logic.
+                            <p>
+                                To become the premier 'Digital Foundry' of the region—a place where chaotic ideas are forged into unbreakable logic. We see a future where every line of code adds structural integrity to the digital world.
                             </p>
-                        </div>
-                        <div className={styles.visionCard}>
+                        </motion.div>
+                        <motion.div className={styles.visionCard} variants={fadeInUp}>
                             <div className={styles.iconWrapper}><Target size={30} /></div>
                             <h3>The Mission</h3>
-                            <p style={{ marginTop: '1rem', color: 'var(--text-secondary)' }}>
+                            <p>
                                 To engineer digital solutions that are as robust as they are beautiful. Providing clients with the structural advantage to dominate.
                             </p>
-                        </div>
-                        <div className={styles.visionCard}>
+                        </motion.div>
+                        <motion.div className={styles.visionCard} variants={fadeInUp}>
                             <div className={styles.iconWrapper}><Flag size={30} /></div>
                             <h3>Our Concept</h3>
-                            <p style={{ marginTop: '1rem', color: 'var(--text-secondary)' }}>
+                            <p>
                                 "Burūj" (The Great Towers). We build digital fortresses that stand the test of time and scale.
                             </p>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </section>
 

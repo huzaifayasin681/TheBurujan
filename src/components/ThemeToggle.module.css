@@ -1,0 +1,31 @@
+.toggleButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--foreground);
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.toggleButton:hover {
+    background-color: var(--card-bg);
+    color: var(--primary);
+    transform: rotate(15deg);
+}
+
+.toggleButton svg {
+    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.toggleButton:active svg {
+    transform: scale(0.9);
+}
+
+/* Optional: specific colors for sun/moon if needed, 
+   but usually foreground/primary is enough */

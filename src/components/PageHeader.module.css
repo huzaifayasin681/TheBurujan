@@ -1,6 +1,6 @@
 .header {
-    padding: 120px 0 60px;
-    background: linear-gradient(180deg, rgba(11, 17, 33, 1) 0%, rgba(20, 30, 48, 1) 100%);
+    padding: 140px 0 60px;
+    background: var(--background);
     position: relative;
     overflow: hidden;
 }
@@ -16,7 +16,8 @@
 .title {
     font-size: 3rem;
     font-weight: 700;
-    color: #fff;
+    color: var(--foreground);
+    letter-spacing: -0.02em;
 }
 
 .breadcrumb {

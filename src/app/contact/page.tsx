@@ -1,8 +1,24 @@
 "use client";
 
+import { motion } from 'framer-motion';
 import PageHeader from '@/components/PageHeader';
 import styles from './contact.module.css';
 import { MapPin, Mail, Phone, Clock, Send, Shield } from 'lucide-react';
+
+const fadeInUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const staggerContainer = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.15
+        }
+    }
+};
 
 export default function ContactPage() {
     return (
@@ -14,45 +30,57 @@ export default function ContactPage() {
 
             <section className="section-padding">
                 <div className="container">
-                    <div className={styles.contactGrid}>
-                        <div className={styles.contactCard}>
+                    <motion.div
+                        className={styles.contactGrid}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                    >
+                        <motion.div className={styles.contactCard} variants={fadeInUp}>
                             <div className={styles.iconBox}><MapPin size={32} /></div>
                             <h3>Headquarters</h3>
                             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
                                 Digital / Islamabad<br />Pakistan
                             </p>
-                        </div>
+                        </motion.div>
 
-                        <div className={`${styles.contactCard} ${styles.active}`} style={{ background: 'var(--primary)', color: '#000' }}>
-                            <div className={styles.iconBox} style={{ color: '#000' }}><Mail size={32} /></div>
+                        <motion.div className={`${styles.contactCard} ${styles.active}`} variants={fadeInUp}>
+                            <div className={styles.iconBox}><Mail size={32} /></div>
                             <h3>Communication</h3>
                             <p style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>
                                 Dedicated Client Portal<br />WhatsApp Business Integration
                             </p>
-                        </div>
+                        </motion.div>
 
-                        <div className={styles.contactCard}>
+                        <motion.div className={styles.contactCard} variants={fadeInUp}>
                             <div className={styles.iconBox}><Clock size={32} /></div>
                             <h3>Operations</h3>
                             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
                                 99.9% Uptime SLA<br />Managed DevOps Clients
                             </p>
-                        </div>
+                        </motion.div>
 
-                        <div className={styles.contactCard}>
+                        <motion.div className={styles.contactCard} variants={fadeInUp}>
                             <div className={styles.iconBox}><Shield size={32} /></div>
                             <h3>Point of Contact</h3>
                             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.5rem' }}>
                                 Muhammad Huzaifa Hassan<br />Lead DevOps Architect
                             </p>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
 
                     {/* Form Section */}
-                    <div className={styles.messageSection}>
+                    <motion.div
+                        className={styles.messageSection}
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
                         <div className={styles.formBox}>
                             <span className="section-subtitle">Secure Comms</span>
-                            <h2 className="section-title" style={{ fontSize: '2rem' }}>Initialize Project.</h2>
+                            <h2 className="section-title" style={{ fontSize: '2rem', color: 'var(--text-primary)' }}>Initialize Project.</h2>
                             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
                                 Ready to build your digital fortress? Send us a secure message.
                             </p>
@@ -74,14 +102,14 @@ export default function ContactPage() {
                             </form>
                         </div>
 
-                        <div className={styles.mapBox} style={{ background: '#1a202c', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div className={styles.mapBox} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             {/* Abstract Tech Visual placeholder instead of generic map since it's "Digital" */}
                             <div style={{ textAlign: 'center', opacity: 0.5 }}>
                                 <Shield size={64} color="var(--primary)" />
-                                <p style={{ marginTop: '1rem', color: '#fff', letterSpacing: '2px' }}>SECURE CHANNEL</p>
+                                <p style={{ marginTop: '1rem', color: 'var(--text-secondary)', letterSpacing: '2px' }}>SECURE CHANNEL</p>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
         </main>
