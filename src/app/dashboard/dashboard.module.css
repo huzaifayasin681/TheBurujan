@@ -1,0 +1,51 @@
+.container {
+    min-height: 100vh;
+    padding: 8rem 2rem 4rem;
+    /* Top padding for navbar */
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--foreground);
+    /* background: linear-gradient(to right, #fff, #999); Removed to fix light mode */
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.projectsSection {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.reviewSection {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--card-border);
+    height: fit-content;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

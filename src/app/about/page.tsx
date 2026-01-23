@@ -34,7 +34,7 @@ export default function AboutPage() {
             {/* Origin Story */}
             <section className="section-padding">
                 <div className="container">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'center' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem', alignItems: 'start' }}>
                         <motion.div
                             initial="hidden"
                             whileInView="visible"

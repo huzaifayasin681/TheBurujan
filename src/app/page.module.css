@@ -1,3 +1,499 @@
+/* ===== HERO GALLERY SECTION ===== */
+.heroGallery {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.galleryBackgrounds {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.galleryBg {
+  position: absolute;
+  inset: 0;
+}
+
+.galleryBg img {
+  object-fit: contain;
+  object-position: center center;
+  filter: brightness(1) saturate(1);
+  transition: filter 0.5s ease;
+  background: var(--background);
+}
+
+/* Light theme - show images clearly */
+:global(:root) .galleryBg {
+  background: #f0f0f0;
+}
+
+:global(:root) .galleryBg img {
+  filter: brightness(1) saturate(0.9);
+}
+
+/* Dark theme - slightly dim images */
+:global(.dark) .galleryBg {
+  background: #050505;
+}
+
+:global(.dark) .galleryBg img {
+  filter: brightness(0.7) saturate(1.1);
+}
+
+/* Theme-based image switching */
+.darkImage {
+  display: block;
+}
+
+.lightImage {
+  display: none;
+}
+
+:global(:root) .darkImage {
+  display: none;
+}
+
+:global(:root) .lightImage {
+  display: block;
+}
+
+:global(.dark) .darkImage {
+  display: block;
+}
+
+:global(.dark) .lightImage {
+  display: none;
+}
+
+.galleryOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.9) 100%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding: 140px 0 80px;
+}
+
+.heroMainContent {
+  max-width: 700px;
+}
+
+.heroTitle {
+  font-size: 4rem;
+  line-height: 1.05;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.titleGradient {
+  background: linear-gradient(135deg, #B08D57 0%, #D4AF37 50%, #B08D57 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  min-width: 280px;
+}
+
+.titleGradient span {
+  -webkit-text-fill-color: #B08D57;
+}
+
+.heroDesc {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 2.5rem;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== SKILLS OVERLAY ===== */
+.skillsOverlay {
+  position: absolute;
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+  z-index: 20;
+}
+
+.activeSkillCard {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 2rem;
+  min-width: 320px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.skillCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.skillIconWrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  transition: all 0.3s ease;
+}
+
+.skillCardTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.skillTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.skillTag {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.skillTag:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* ===== GALLERY NAVIGATION ===== */
+.galleryNav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.galleryNavItem {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.galleryNavItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.galleryNavItem.active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.navItemContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.galleryNavItem.active .navItemContent {
+  color: #fff;
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+}
+
+/* ===== PRIMARY BUTTON ===== */
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #B08D57 0%, #D4AF37 100%);
+  color: #000;
+  padding: 1rem 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 10px 30px rgba(176, 141, 87, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.primaryBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(176, 141, 87, 0.4);
+}
+
+.secondaryBtn {
+  display: none;
+}
+
+/* ===== RESPONSIVE HERO ===== */
+@media (max-width: 1200px) {
+  .skillsOverlay {
+    position: relative;
+    top: auto;
+    right: auto;
+    transform: none;
+    margin-top: 3rem;
+  }
+
+  .activeSkillCard {
+    min-width: auto;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroDesc {
+    font-size: 1.1rem;
+  }
+
+  .galleryNav {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .galleryNavItem {
+    width: 100%;
+  }
+
+  .activeSkillCard {
+    padding: 1.5rem;
+  }
+
+  .skillCardTitle {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .skillTags {
+    gap: 0.5rem;
+  }
+
+  .skillTag {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ===== LIGHT THEME ADJUSTMENTS ===== */
+:global(:root) .galleryOverlay {
+  background: linear-gradient(to bottom,
+      rgba(240, 240, 240, 0.2) 0%,
+      rgba(240, 240, 240, 0.5) 50%,
+      rgba(240, 240, 240, 0.95) 100%);
+}
+
+:global(:root) .heroTitle {
+  color: #1a1a1a;
+  text-shadow: 0 2px 15px rgba(255, 255, 255, 0.9);
+}
+
+:global(:root) .titleGradient {
+  background: linear-gradient(135deg, #7a5c10 0%, #9a7828 50%, #7a5c10 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:global(:root) .heroDesc {
+  color: #333;
+  text-shadow: 0 1px 8px rgba(255, 255, 255, 0.7);
+}
+
+:global(:root) .activeSkillCard {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.12),
+    0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+:global(:root) .skillCardTitle {
+  color: #171717;
+}
+
+:global(:root) .skillIconWrapper {
+  background: rgba(176, 141, 87, 0.15) !important;
+}
+
+:global(:root) .skillTag {
+  background: #f0f0f0;
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  color: #333;
+}
+
+:global(:root) .skillTag:hover {
+  background: #e5e5e5;
+}
+
+:global(:root) .galleryNavItem {
+  background: #ffffff;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+:global(:root) .galleryNavItem:hover {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+:global(:root) .galleryNavItem.active {
+  background: #ffffff;
+  border-color: #B08D57;
+  box-shadow: 0 6px 20px rgba(176, 141, 87, 0.2);
+}
+
+:global(:root) .navItemContent {
+  color: #555;
+}
+
+:global(:root) .galleryNavItem.active .navItemContent {
+  color: #171717;
+}
+
+:global(:root) .primaryBtn {
+  background: linear-gradient(135deg, #8B6914 0%, #B08D57 100%);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(139, 105, 20, 0.25);
+}
+
+
+:global(:root) .primaryBtn:hover {
+  box-shadow: 0 15px 40px rgba(139, 105, 20, 0.35);
+}
+
+/* ===== DARK THEME STYLES ===== */
+:global(.dark) .galleryOverlay {
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.6) 50%,
+      rgba(0, 0, 0, 0.9) 100%);
+}
+
+:global(.dark) .heroTitle {
+  color: #fff;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+:global(.dark) .titleGradient {
+  background: linear-gradient(135deg, #B08D57 0%, #D4AF37 50%, #B08D57 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+:global(.dark) .heroDesc {
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+:global(.dark) .activeSkillCard {
+  background: rgba(10, 10, 10, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .skillCardTitle {
+  color: #fff;
+}
+
+:global(.dark) .skillTag {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+:global(.dark) .skillTag:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .galleryNavItem {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+:global(.dark) .galleryNavItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+:global(.dark) .galleryNavItem.active {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+:global(.dark) .navItemContent {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+:global(.dark) .galleryNavItem.active .navItemContent {
+  color: #fff;
+}
+
+:global(.dark) .primaryBtn {
+  background: linear-gradient(135deg, #B08D57 0%, #D4AF37 100%);
+  color: #000;
+  box-shadow: 0 10px 30px rgba(176, 141, 87, 0.3);
+}
+
+:global(.dark) .primaryBtn:hover {
+  box-shadow: 0 15px 40px rgba(176, 141, 87, 0.4);
+}
+
+/* ===== OLD HERO STYLES (kept for compatibility) ===== */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -6,7 +502,6 @@
   position: relative;
   overflow: hidden;
   padding: 120px 0 60px;
-  /* Account for fixed navbar */
 }
 
 .heroGrid {
@@ -14,12 +509,6 @@
   grid-template-columns: 1.2fr 0.8fr;
   gap: 2rem;
   align-items: center;
-}
-
-.heroContent {
-  padding-right: 2rem;
-  position: relative;
-  z-index: 2;
 }
 
 .heroVisual {
@@ -30,22 +519,15 @@
   min-height: 400px;
 }
 
-.heroTitle {
-  font-size: 5.5rem;
-  line-height: 1.05;
-  font-weight: 500;
-  /* Cleaner look */
-  color: var(--foreground);
-  margin-bottom: 2rem;
-  letter-spacing: -0.03em;
-}
-
-.heroDesc {
-  font-size: 1.125rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  max-width: 480px;
-  margin-bottom: 3rem;
+.heroCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3rem;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  max-width: 650px;
 }
 
 .btnGroup {
@@ -53,32 +535,7 @@
   gap: 1rem;
 }
 
-/* Minimal "Contact Us" style link */
-.primaryBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: var(--foreground);
-  color: var(--background);
-  padding: 1rem 2rem;
-  border-radius: 999px;
-  /* Pill */
-  font-weight: 500;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: none;
-  /* Remove existing border */
-}
-
-.primaryBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.secondaryBtn {
-  display: none;
-  /* Hide secondary for this specific design */
-}
-
+/* ===== SERVICES GRID ===== */
 .servicesGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -106,7 +563,6 @@
   width: 56px;
   height: 56px;
   background: rgba(0, 210, 170, 0.1);
-  /* Very light teal/green hint or just grey */
   color: var(--primary);
   border-radius: 16px;
   display: flex;
@@ -142,6 +598,7 @@
   gap: 0.75rem;
 }
 
+/* ===== STATS SECTION ===== */
 .statsSection {
   background: transparent;
   border-top: 1px solid var(--line-color);
@@ -159,7 +616,6 @@
   font-size: 4rem;
   font-weight: 800;
   color: var(--foreground);
-  /* Dark grey for visibility */
   display: block;
   margin-bottom: 0.5rem;
   letter-spacing: -2px;
@@ -191,16 +647,11 @@
   .heroVisual {
     height: 300px;
     order: -1;
-    /* Visualize first on mobile? or last? Let's keep normally but maybe smaller */
     margin-bottom: 2rem;
   }
 }
 
 @media (max-width: 768px) {
-  .heroTitle {
-    font-size: 2.5rem;
-  }
-
   .statsGrid {
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
@@ -214,14 +665,11 @@
   }
 }
 
-/* --- Four Pillars: Expanding Architectural Columns --- */
-
+/* ===== FOUR PILLARS SECTION ===== */
 .pillarsSection {
   background-color: #050505;
-  /* Deep black foundation */
   color: #fff;
   padding-bottom: 8rem;
-  /* Extra space at bottom */
   position: relative;
 }
 
@@ -249,22 +697,18 @@
   line-height: 1;
 }
 
-/* The Container: A single seamless block */
 .columnsContainer {
   display: flex;
   min-height: 500px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 32px;
   overflow: hidden;
-  /* Contains the children */
   background: rgba(25, 25, 25, 0.4);
   backdrop-filter: blur(10px);
 }
 
-/* Individual Column Item */
 .columnItem {
   flex: 1;
-  /* All start equal width */
   padding: 3rem 2rem;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
@@ -274,27 +718,22 @@
   justify-content: flex-start;
   overflow: hidden;
   cursor: default;
-  /* Or pointer if clickable */
 }
 
 .columnItem:last-child {
   border-right: none;
 }
 
-/* Hover Interaction: Expand the hovered item */
 .columnsContainer:hover .columnItem {
   opacity: 0.7;
-  /* Dim others slightly */
 }
 
 .columnsContainer .columnItem:hover {
   flex: 2;
-  /* Expands to take more space */
   opacity: 1;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0));
 }
 
-/* Content Styling */
 .columnNumber {
   font-size: 0.9rem;
   font-family: monospace;
@@ -319,22 +758,18 @@
   font-weight: 700;
   margin-bottom: 1rem;
   white-space: nowrap;
-  /* Keep title on one line if possible */
   transition: transform 0.3s ease;
 }
 
-/* Description is initially hidden or truncated, shows fully on expand */
 .columnDesc {
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.6;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.4s ease 0.1s;
-  /* Delay slightly */
   max-width: 300px;
 }
 
-/* Reveal description on hover */
 .columnItem:hover .columnDesc {
   opacity: 1;
   transform: translateY(0);
@@ -358,7 +793,6 @@
   transform: translateY(0);
 }
 
-/* Mobile Responsive */
 @media (max-width: 1024px) {
   .columnsContainer {
     flex-direction: column;
@@ -377,7 +811,6 @@
 
   .columnsContainer .columnItem:hover {
     flex: 1;
-    /* No resizing on mobile, just effect */
   }
 
   .columnDesc,

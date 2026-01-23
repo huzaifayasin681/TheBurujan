@@ -1,12 +1,14 @@
 "use client";
 
 import styles from './page.module.css';
-import { motion } from 'framer-motion';
-import { ArrowRight, BarChart, Code, Smartphone, Zap, Shield, Database } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, BarChart, Code, Smartphone, Zap, Shield, Database, Cloud, Terminal, Globe, Lock, Cpu } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 import Testimonials from '@/components/Testimonials';
+import Typewriter from '@/components/Typewriter';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -23,61 +25,206 @@ const staggerContainer = {
   }
 };
 
+// Gallery items with skills
+const galleryItems = [
+  {
+    id: 1,
+    image: '/images/gallery-web.png',
+    imageLight: '/images/gallery-web-light.png',
+    title: 'Web Architecture',
+    skills: ['Next.js', 'React', 'TypeScript', 'Node.js', 'Three.js'],
+    icon: Code,
+    color: '#00D9FF'
+  },
+  {
+    id: 2,
+    image: '/images/gallery-devops.png',
+    imageLight: '/images/gallery-devops-light.png',
+    title: 'DevOps & Cloud',
+    skills: ['Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Terraform'],
+    icon: Cloud,
+    color: '#B08D57'
+  },
+  {
+    id: 3,
+    image: '/images/gallery-mobile.png',
+    imageLight: '/images/gallery-mobile-light.png',
+    title: 'Mobile Development',
+    skills: ['Flutter', 'React Native', 'Swift', 'Kotlin', 'Firebase'],
+    icon: Smartphone,
+    color: '#FF6B00'
+  },
+  {
+    id: 4,
+    image: '/images/gallery-security.png',
+    imageLight: '/images/gallery-security-light.png',
+    title: 'Cybersecurity',
+    skills: ['Penetration Testing', 'SIEM', 'Zero Trust', 'Vault', 'SOC'],
+    icon: Shield,
+    color: '#00FF88'
+  }
+];
+
 export default function Home() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % galleryItems.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
   return (
     <main>
-      {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className="container">
-          <div className={styles.heroGrid}>
-            <div className={styles.heroContent}>
-              <motion.h1
-                className={styles.heroTitle}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                There is a <br /> Better Way <br /> to Build.
-              </motion.h1>
-              <motion.p
-                className={styles.heroDesc}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-              >
+      {/* Hero Gallery Section */}
+      <section className={styles.heroGallery}>
+        {/* Background Images */}
+        <div className={styles.galleryBackgrounds}>
+          <AnimatePresence mode="wait">
+            {galleryItems.map((item, index) => (
+              index === activeIndex && (
+                <motion.div
+                  key={item.id}
+                  className={styles.galleryBg}
+                  initial={{ opacity: 0, scale: 1.02 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1 }}
+                >
+                  {/* Dark theme image */}
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    style={{ objectFit: 'cover', objectPosition: 'center center' }}
+                    priority
+                    sizes="100vw"
+                    className={styles.darkImage}
+                  />
+                  {/* Light theme image */}
+                  <Image
+                    src={item.imageLight}
+                    alt={item.title}
+                    fill
+                    style={{ objectFit: 'cover', objectPosition: 'center center' }}
+                    priority
+                    sizes="100vw"
+                    className={styles.lightImage}
+                  />
+                  <div className={styles.galleryOverlay} />
+                </motion.div>
+              )
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Hero Content */}
+        <div className={styles.heroContent}>
+          <div className="container">
+            <motion.div
+              className={styles.heroMainContent}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              <h1 className={styles.heroTitle}>
+                We don&apos;t just code; <br /> we architect <br />
+                <span className={styles.titleGradient}>
+                  <Typewriter
+                    texts={[
+                      'digital legacies.',
+                      'secure systems.',
+                      'powerful solutions.',
+                      'scalable platforms.',
+                      'modern experiences.'
+                    ]}
+                    speed={100}
+                    deleteSpeed={50}
+                    pauseDuration={2500}
+                  />
+                </span>
+              </h1>
+              <p className={styles.heroDesc}>
                 The Burujan engineers digital fortresses. Vulnerability scanning, secure infrastructure, and high-end web architecture.
-              </motion.p>
-              <motion.div
-                className={styles.btnGroup}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-              >
-                <Link href="/contact" className={styles.primaryBtn}>
-                  Start Building <ArrowRight size={18} />
-                </Link>
-                {/* Secondary button removed for minimal design */}
-              </motion.div>
+              </p>
+              <Link href="/contact" className={styles.primaryBtn}>
+                Start Building <ArrowRight size={18} />
+              </Link>
+            </motion.div>
+
+            {/* Skills Overlay */}
+            <div className={styles.skillsOverlay}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={galleryItems[activeIndex].id}
+                  className={styles.activeSkillCard}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className={styles.skillCardHeader}>
+                    <div
+                      className={styles.skillIconWrapper}
+                      style={{ background: `${galleryItems[activeIndex].color}20`, borderColor: galleryItems[activeIndex].color }}
+                    >
+                      {(() => {
+                        const IconComponent = galleryItems[activeIndex].icon;
+                        return <IconComponent size={28} style={{ color: galleryItems[activeIndex].color }} />;
+                      })()}
+                    </div>
+                    <h3 className={styles.skillCardTitle}>{galleryItems[activeIndex].title}</h3>
+                  </div>
+                  <div className={styles.skillTags}>
+                    {galleryItems[activeIndex].skills.map((skill, idx) => (
+                      <motion.span
+                        key={skill}
+                        className={styles.skillTag}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: idx * 0.1 }}
+                        style={{ borderColor: `${galleryItems[activeIndex].color}50` }}
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
-            <motion.div
-              className={styles.heroVisual}
-              initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ delay: 0.2, duration: 1, ease: "easeOut" }}
-            >
-              {/* Abstract Layers Representation */}
-              <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Image
-                  src="/images/burujan-hero-devops.png"
-                  alt="Digital Fortress DevOps Architecture"
-                  width={1024}
-                  height={1024}
-                  style={{ objectFit: 'contain', width: '100%', height: 'auto', maxHeight: '500px' }}
-                  priority
-                />
-              </div>
-            </motion.div>
+            {/* Gallery Navigation */}
+            <div className={styles.galleryNav}>
+              {galleryItems.map((item, index) => (
+                <button
+                  key={item.id}
+                  className={`${styles.galleryNavItem} ${index === activeIndex ? styles.active : ''}`}
+                  onClick={() => {
+                    setActiveIndex(index);
+                    setIsAutoPlaying(false);
+                  }}
+                  onMouseEnter={() => setIsAutoPlaying(false)}
+                  onMouseLeave={() => setIsAutoPlaying(true)}
+                >
+                  <div className={styles.navItemContent}>
+                    <item.icon size={20} />
+                    <span>{item.title}</span>
+                  </div>
+                  {index === activeIndex && (
+                    <motion.div
+                      className={styles.activeIndicator}
+                      layoutId="activeIndicator"
+                      style={{ background: item.color }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -158,7 +305,7 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      < section className={`section-padding ${styles.statsSection}`}>
+      <section className={`section-padding ${styles.statsSection}`}>
         <div className="container">
           <motion.div
             className={styles.statsGrid}
@@ -185,13 +332,13 @@ export default function Home() {
             </motion.div>
           </motion.div>
         </div>
-      </section >
+      </section>
 
       {/* Testimonials Section */}
-      < Testimonials />
+      <Testimonials />
 
       {/* CTA Section */}
-      < section className="section-padding" style={{ textAlign: 'center' }}>
+      <section className="section-padding" style={{ textAlign: 'center' }}>
         <div className="container">
           <motion.div
             className="glass-card"
@@ -212,7 +359,7 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-      </section >
-    </main >
+      </section>
+    </main>
   );
 }

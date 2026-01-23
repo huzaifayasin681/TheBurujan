@@ -49,6 +49,7 @@ export default function Navbar() {
           <li><Link href="/services" className={`${styles.navLink} ${pathname === '/services' ? styles.active : ''}`} onClick={() => setMobileOpen(false)}>Services</Link></li>
           <li><Link href="/portfolio" className={`${styles.navLink} ${pathname === '/portfolio' ? styles.active : ''}`} onClick={() => setMobileOpen(false)}>Portfolio</Link></li>
           <li><Link href="/contact" className={`${styles.navLink} ${pathname === '/contact' ? styles.active : ''}`} onClick={() => setMobileOpen(false)}>Contact us</Link></li>
+          <li><Link href="/dashboard" className={`${styles.navLink} ${pathname === '/dashboard' ? styles.active : ''}`} onClick={() => setMobileOpen(false)}>Client Portal</Link></li>
 
           <li className={styles.mobileCTA}>
             <Link href="/contact" className={styles.ctaButton} onClick={() => setMobileOpen(false)}>
