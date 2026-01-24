@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import PageHeader from '@/components/PageHeader';
 import styles from './contact.module.css';
-import { MapPin, Mail, Phone, Clock, Send, Shield } from 'lucide-react';
+import { MapPin, Mail, Clock, Send, Shield, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
@@ -20,7 +21,76 @@ const staggerContainer = {
     }
 };
 
+interface FormData {
+    name: string;
+    company: string;
+    phone: string;
+    email: string;
+    message: string;
+}
+
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+
 export default function ContactPage() {
+    const [formData, setFormData] = useState<FormData>({
+        name: '',
+        company: '',
+        phone: '',
+        email: '',
+        message: ''
+    });
+    const [status, setStatus] = useState<FormStatus>('idle');
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Basic validation
+        if (!formData.name || !formData.email || !formData.message) {
+            setStatus('error');
+            setErrorMessage('Please fill in all required fields (Name, Email, and Message)');
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            setStatus('error');
+            setErrorMessage('Please enter a valid email address');
+            return;
+        }
+
+        setStatus('loading');
+        setErrorMessage('');
+
+        try {
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to send message');
+            }
+
+            setStatus('success');
+            setFormData({ name: '', company: '', phone: '', email: '', message: '' });
+        } catch (error) {
+            setStatus('error');
+            setErrorMessage(error instanceof Error ? error.message : 'Failed to send message. Please try again.');
+        }
+    };
+
     return (
         <main>
             <PageHeader
@@ -85,21 +155,114 @@ export default function ContactPage() {
                                 Ready to build your digital fortress? Send us a secure message.
                             </p>
 
-                            <form>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                                    <input type="text" placeholder="Name" className={styles.inputField} />
-                                    <input type="text" placeholder="Company Type" className={styles.inputField} />
-                                </div>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                                    <input type="tel" placeholder="Phone" className={styles.inputField} />
-                                    <input type="email" placeholder="Email" className={styles.inputField} />
-                                </div>
-                                <textarea placeholder="Message / Project Vision" rows={5} className={styles.inputField}></textarea>
+                            <AnimatePresence mode="wait">
+                                {status === 'success' ? (
+                                    <motion.div
+                                        key="success"
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        className={styles.successMessage}
+                                    >
+                                        <CheckCircle size={48} color="var(--primary)" />
+                                        <h3>Message Transmitted Successfully!</h3>
+                                        <p>Thank you for reaching out. We&apos;ll get back to you within 24 hours.</p>
+                                        <button
+                                            onClick={() => setStatus('idle')}
+                                            className={styles.submitBtn}
+                                            style={{ marginTop: '1.5rem' }}
+                                        >
+                                            Send Another Message
+                                        </button>
+                                    </motion.div>
+                                ) : (
+                                    <motion.form
+                                        key="form"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        onSubmit={handleSubmit}
+                                    >
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                placeholder="Name *"
+                                                className={styles.inputField}
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                disabled={status === 'loading'}
+                                            />
+                                            <input
+                                                type="text"
+                                                name="company"
+                                                placeholder="Company Type"
+                                                className={styles.inputField}
+                                                value={formData.company}
+                                                onChange={handleChange}
+                                                disabled={status === 'loading'}
+                                            />
+                                        </div>
+                                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                placeholder="Phone"
+                                                className={styles.inputField}
+                                                value={formData.phone}
+                                                onChange={handleChange}
+                                                disabled={status === 'loading'}
+                                            />
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                placeholder="Email *"
+                                                className={styles.inputField}
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                disabled={status === 'loading'}
+                                            />
+                                        </div>
+                                        <textarea
+                                            name="message"
+                                            placeholder="Message / Project Vision *"
+                                            rows={5}
+                                            className={styles.inputField}
+                                            value={formData.message}
+                                            onChange={handleChange}
+                                            disabled={status === 'loading'}
+                                        ></textarea>
 
-                                <button type="button" className={styles.submitBtn}>
-                                    Transmit Message <Send size={16} />
-                                </button>
-                            </form>
+                                        {status === 'error' && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: -10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                className={styles.errorMessage}
+                                            >
+                                                <AlertCircle size={18} />
+                                                <span>{errorMessage}</span>
+                                            </motion.div>
+                                        )}
+
+                                        <button
+                                            type="submit"
+                                            className={styles.submitBtn}
+                                            disabled={status === 'loading'}
+                                        >
+                                            {status === 'loading' ? (
+                                                <>
+                                                    <Loader2 size={16} className={styles.spinner} />
+                                                    Transmitting...
+                                                </>
+                                            ) : (
+                                                <>
+                                                    Transmit Message <Send size={16} />
+                                                </>
+                                            )}
+                                        </button>
+                                    </motion.form>
+                                )}
+                            </AnimatePresence>
                         </div>
 
                         <div className={styles.mapBox} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

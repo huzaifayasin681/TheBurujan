@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import PageHeader from '@/components/PageHeader';
 import styles from './services.module.css';
-import { Check, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 const serviceDetails = [
     {
@@ -56,7 +57,74 @@ const staggerContainer = {
     }
 };
 
+interface BlueprintFormData {
+    name: string;
+    email: string;
+    companyType: string;
+    projectDetails: string;
+}
+
+type FormStatus = 'idle' | 'loading' | 'success' | 'error';
+
 export default function ServicesPage() {
+    const [formData, setFormData] = useState<BlueprintFormData>({
+        name: '',
+        email: '',
+        companyType: 'Startup (MVP)',
+        projectDetails: ''
+    });
+    const [status, setStatus] = useState<FormStatus>('idle');
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Basic validation
+        if (!formData.name || !formData.email || !formData.projectDetails) {
+            setStatus('error');
+            setErrorMessage('Please fill in all required fields');
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            setStatus('error');
+            setErrorMessage('Please enter a valid email address');
+            return;
+        }
+
+        setStatus('loading');
+        setErrorMessage('');
+
+        try {
+            const response = await fetch('/api/blueprint', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Failed to submit request');
+            }
+
+            setStatus('success');
+            setFormData({ name: '', email: '', companyType: 'Startup (MVP)', projectDetails: '' });
+        } catch (error) {
+            setStatus('error');
+            setErrorMessage(error instanceof Error ? error.message : 'Failed to submit. Please try again.');
+        }
+    };
+
     return (
         <main>
             <PageHeader
@@ -66,7 +134,7 @@ export default function ServicesPage() {
 
             <section className="section-padding">
                 <div className="container">
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }}>
+                    <div className={styles.servicesGrid}>
                         {/* Left Content */}
                         <motion.div
                             initial="hidden"
@@ -110,28 +178,114 @@ export default function ServicesPage() {
                         >
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', background: 'var(--foreground)', padding: '1rem', borderRadius: '24px', textAlign: 'center', color: 'var(--background)', fontWeight: 'bold' }}>Request a Blueprint</h3>
 
-                            <div className={styles.formGroup}>
-                                <label className={styles.label}>Name</label>
-                                <input type="text" className={styles.input} placeholder="Enter your name" />
-                            </div>
-                            <div className={styles.formGroup}>
-                                <label className={styles.label}>Email</label>
-                                <input type="email" className={styles.input} placeholder="Enter your email" />
-                            </div>
-                            <div className={styles.formGroup}>
-                                <label className={styles.label}>Company Type</label>
-                                <select className={styles.input} style={{ appearance: 'none' }}>
-                                    <option>Startup (MVP)</option>
-                                    <option>SME (Upgrade)</option>
-                                    <option>High-End Service Provider</option>
-                                </select>
-                            </div>
-                            <div className={styles.formGroup}>
-                                <label className={styles.label}>Project Details</label>
-                                <textarea className={styles.textarea} rows={4} placeholder="Describe your vision"></textarea>
-                            </div>
+                            <AnimatePresence mode="wait">
+                                {status === 'success' ? (
+                                    <motion.div
+                                        key="success"
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        className={styles.successMessage}
+                                    >
+                                        <CheckCircle size={48} color="var(--primary)" />
+                                        <h4>Blueprint Request Received!</h4>
+                                        <p>Thank you for your interest. We&apos;ll begin the audit process and contact you within 24 hours.</p>
+                                        <button
+                                            onClick={() => setStatus('idle')}
+                                            className={styles.priceBtn}
+                                            style={{ marginTop: '1.5rem' }}
+                                        >
+                                            Submit Another Request
+                                        </button>
+                                    </motion.div>
+                                ) : (
+                                    <motion.form
+                                        key="form"
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        onSubmit={handleSubmit}
+                                    >
+                                        <div className={styles.formGroup}>
+                                            <label className={styles.label}>Name *</label>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                className={styles.input}
+                                                placeholder="Enter your name"
+                                                value={formData.name}
+                                                onChange={handleChange}
+                                                disabled={status === 'loading'}
+                                            />
+                                        </div>
+                                        <div className={styles.formGroup}>
+                                            <label className={styles.label}>Email *</label>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                className={styles.input}
+                                                placeholder="Enter your email"
+                                                value={formData.email}
+                                                onChange={handleChange}
+                                                disabled={status === 'loading'}
+                                            />
+                                        </div>
+                                        <div className={styles.formGroup}>
+                                            <label className={styles.label}>Company Type</label>
+                                            <select
+                                                name="companyType"
+                                                className={styles.input}
+                                                style={{ appearance: 'none' }}
+                                                value={formData.companyType}
+                                                onChange={handleChange}
+                                                disabled={status === 'loading'}
+                                            >
+                                                <option>Startup (MVP)</option>
+                                                <option>SME (Upgrade)</option>
+                                                <option>High-End Service Provider</option>
+                                            </select>
+                                        </div>
+                                        <div className={styles.formGroup}>
+                                            <label className={styles.label}>Project Details *</label>
+                                            <textarea
+                                                name="projectDetails"
+                                                className={styles.textarea}
+                                                rows={4}
+                                                placeholder="Describe your vision"
+                                                value={formData.projectDetails}
+                                                onChange={handleChange}
+                                                disabled={status === 'loading'}
+                                            ></textarea>
+                                        </div>
 
-                            <button className={styles.priceBtn}>Initialize Audit</button>
+                                        {status === 'error' && (
+                                            <motion.div
+                                                initial={{ opacity: 0, y: -10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                className={styles.errorMessage}
+                                            >
+                                                <AlertCircle size={18} />
+                                                <span>{errorMessage}</span>
+                                            </motion.div>
+                                        )}
+
+                                        <button
+                                            type="submit"
+                                            className={styles.priceBtn}
+                                            disabled={status === 'loading'}
+                                        >
+                                            {status === 'loading' ? (
+                                                <>
+                                                    <Loader2 size={18} className={styles.spinner} style={{ marginRight: '8px' }} />
+                                                    Processing...
+                                                </>
+                                            ) : (
+                                                'Initialize Audit'
+                                            )}
+                                        </button>
+                                    </motion.form>
+                                )}
+                            </AnimatePresence>
                         </motion.div>
                     </div>
                 </div>
@@ -163,7 +317,7 @@ export default function ServicesPage() {
                             { id: '02', title: 'The Architecture', desc: "Design. We map database schemas and UI flows before coding." },
                             { id: '03', title: 'The Construction', desc: "Build. Cloud Native technologies. Clean code. No bloat." },
                             { id: '04', title: 'The Fortification', desc: "Launch. Security, Speed Optimization, and Deployment." }
-                        ].map((step, idx) => (
+                        ].map((step) => (
                             <motion.div key={step.id} className={styles.stepNode} variants={fadeInUp}>
                                 <div className={styles.stepNumber}>{step.id}</div>
                                 <div className={styles.stepContent}>
@@ -178,3 +332,4 @@ export default function ServicesPage() {
         </main>
     );
 }
+

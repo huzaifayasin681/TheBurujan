@@ -122,3 +122,68 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Success Message */
+.successMessage {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.successMessage h3 {
+    margin: 1rem 0 0.5rem;
+    color: var(--text-primary);
+    font-size: 1.4rem;
+}
+
+.successMessage p {
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Error Message */
+.errorMessage {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(220, 53, 69, 0.1);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    border-radius: 8px;
+    color: #dc3545;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+/* Spinner Animation */
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Disabled State */
+.submitBtn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.submitBtn:disabled:hover {
+    transform: none;
+    box-shadow: none;
+    background: var(--foreground);
+    color: var(--background);
+}
+
+.inputField:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
@@ -39,8 +40,14 @@ export default function Navbar() {
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', width: '100%' }}>
         <Link href="/" className={styles.logo} onClick={() => setMobileOpen(false)}>
-          <div className={styles.logoBox}>B</div>
-          <span>TheBurujan</span>
+          <Image
+            src="/images/logo.png"
+            alt="The Burujan Logo"
+            width={150}
+            height={45}
+            className={styles.logoImage}
+            priority
+          />
         </Link>
 
         <ul className={`${styles.navLinks} ${mobileOpen ? styles.open : ''}`}>

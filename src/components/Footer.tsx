@@ -1,7 +1,8 @@
 "use client";
 
 import Link from 'next/link';
-import { Layers, MapPin, Mail, Linkedin, MessageCircle, ArrowRight, Globe } from 'lucide-react';
+import Image from 'next/image';
+import { MapPin, Mail, Linkedin, MessageCircle, ArrowRight, Globe } from 'lucide-react';
 import { motion } from 'framer-motion';
 import styles from './Footer.module.css';
 
@@ -18,9 +19,15 @@ export default function Footer() {
                 <div className={styles.grid}>
                     {/* Column 1: The Brand */}
                     <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.5rem', fontWeight: 700, color: '#fff' }}>
-                            <Layers color="var(--primary)" />
-                            The Burujan
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <Image
+                                src="/images/logo.png"
+                                alt="The Burujan Logo"
+                                width={200}
+                                height={200}
+                                className={styles.footerLogo}
+                                style={{ width: '200px', height: 'auto' }}
+                            />
                         </div>
                         <p className={styles.brandDesc}>
                             <span style={{ color: 'var(--primary)', fontWeight: 600, display: 'block', marginBottom: '0.5rem' }}>

@@ -19,6 +19,11 @@
     max-width: 300px;
 }
 
+/* Footer logo needs to be inverted since footer is always dark */
+.footerLogo {
+    filter: invert(1);
+}
+
 .heading {
     color: #fff;
     font-size: 1.1rem;

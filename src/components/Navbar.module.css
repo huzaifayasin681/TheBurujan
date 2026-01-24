@@ -44,6 +44,16 @@
     font-size: 1.25rem;
 }
 
+.logoImage {
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+/* Invert logo colors in dark mode for visibility */
+:global(.dark) .logoImage {
+    filter: invert(1);
+}
+
 /* Central Pill Navigation */
 .navLinks {
     display: flex;
