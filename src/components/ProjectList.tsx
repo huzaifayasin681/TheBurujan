@@ -17,17 +17,6 @@ export default function ProjectList({ projects }: { projects: any[] }) {
                         <h3 className={styles.projectTitle}>{project.title}</h3>
                         <p className={styles.description}>{project.description || "No description provided."}</p>
                     </div>
-                    <div className={styles.statusInfo}>
-                        <span className={`${styles.status} ${project.status === 'Done' || project.status === 'Completed' ? styles.statusDone :
-                                project.status === 'In Progress' ? styles.statusProgress :
-                                    styles.statusPending
-                            }`}>
-                            {project.status}
-                        </span>
-                        <span className={styles.date}>
-                            Started: {new Date(project.createdAt).toLocaleDateString()}
-                        </span>
-                    </div>
                 </div>
             ))}
         </div>

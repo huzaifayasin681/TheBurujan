@@ -19,7 +19,7 @@ export default function Footer() {
                 <div className={styles.grid}>
                     {/* Column 1: The Brand */}
                     <div>
-                        <div style={{ marginBottom: '1.5rem' }}>
+                        <div className={styles.logoContainer}>
                             <Image
                                 src="/images/logo.png"
                                 alt="The Burujan Logo"
@@ -30,7 +30,7 @@ export default function Footer() {
                             />
                         </div>
                         <p className={styles.brandDesc}>
-                            <span style={{ color: 'var(--primary)', fontWeight: 600, display: 'block', marginBottom: '0.5rem' }}>
+                            <span className={styles.brandTagline}>
                                 Engineering Digital Empires.
                             </span>
                             We bridge the gap between humble roots and celestial heights. A digital foundry built on logic, grit, and architecture.
@@ -63,43 +63,43 @@ export default function Footer() {
                     {/* Column 4: Coordinates */}
                     <div>
                         <h4 className={styles.heading}>Coordinates</h4>
-                        <div className={styles.contactItem} style={{ alignItems: 'flex-start' }}>
-                            <Mail className={styles.contactIcon} size={20} style={{ marginTop: '3px' }} />
+                        <div className={`${styles.contactItem} ${styles.contactWrapper}`}>
+                            <Mail className={`${styles.contactIcon} ${styles.contactIconWrapper}`} size={20} />
                             <span>
-                                <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Email</span>
-                                <a href="mailto:huzaifa@theburujan.tech" style={{ color: '#fff', fontWeight: 500 }}>huzaifa@theburujan.tech</a>
+                                <span className={styles.contactLabel}>Email</span>
+                                <a href="mailto:huzaifa@theburujan.tech" className={styles.contactValue}>huzaifa@theburujan.tech</a>
                             </span>
                         </div>
 
-                        <div className={styles.contactItem} style={{ alignItems: 'flex-start' }}>
-                            <MapPin className={styles.contactIcon} size={20} style={{ marginTop: '3px' }} />
+                        <div className={`${styles.contactItem} ${styles.contactWrapper}`}>
+                            <MapPin className={`${styles.contactIcon} ${styles.contactIconWrapper}`} size={20} />
                             <span>
-                                <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Operational Base</span>
-                                <span style={{ color: '#fff' }}>Islamabad, Blue Area, Street 37, G6/2, ISB</span>
+                                <span className={styles.contactLabel}>Operational Base</span>
+                                <span className={styles.contactValue}>Islamabad, Blue Area, Street 37, G6/2, ISB</span>
                             </span>
                         </div>
 
-                        <div className={styles.contactItem} style={{ alignItems: 'flex-start' }}>
-                            <Globe className={styles.contactIcon} size={20} style={{ marginTop: '3px' }} />
+                        <div className={`${styles.contactItem} ${styles.contactWrapper}`}>
+                            <Globe className={`${styles.contactIcon} ${styles.contactIconWrapper}`} size={20} />
                             <span>
-                                <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Headquarters</span>
-                                <span style={{ color: '#fff' }}>Islamabad</span>
+                                <span className={styles.contactLabel}>Headquarters</span>
+                                <span className={styles.contactValue}>Islamabad</span>
                             </span>
                         </div>
 
-                        <div style={{ marginTop: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(0, 210, 170, 0.1)', padding: '0.5rem 1rem', borderRadius: '4px', border: '1px solid currentColor', color: 'var(--primary)', width: 'fit-content' }}>
-                            <div style={{ width: '8px', height: '8px', background: 'var(--primary)', borderRadius: '50%', boxShadow: '0 0 10px var(--primary)' }}></div>
-                            <span style={{ fontWeight: 600, fontSize: '0.85rem' }}>Systems Operational</span>
+                        <div className={styles.operationalBadge}>
+                            <div className={styles.statusDot}></div>
+                            <span className={styles.statusText}>Systems Operational</span>
                         </div>
                     </div>
                 </div>
 
                 <div className={styles.bottom}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-                        <p>© 2026 The Burujan.</p>
+                    <div className={styles.bottomLeft}>
+                        <p className={styles.copyright}>© 2026 The Burujan.</p>
                     </div>
 
-                    <p style={{ opacity: 0.5, letterSpacing: '1px', textTransform: 'uppercase', fontSize: '0.8rem' }}>Engineered in Pakistan.</p>
+                    <p className={styles.engineered}>Engineered in Pakistan.</p>
 
                     <div className={styles.socials}>
                         <Link href="https://linkedin.com" target="_blank" className={styles.socialIcon}><Linkedin size={16} /></Link>
