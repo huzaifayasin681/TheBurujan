@@ -40,6 +40,14 @@ const serviceDetails = [
             "AI Automation Agents (n8n)"
         ]
     },
+    {
+        title: "Mechanical Engineering",
+        items: [
+            "CAD Modelling (Solidworks)",
+            "3D Printing & Prototyping",
+            "Robotics Simulations (Webots/Matlab)"
+        ]
+    },
 ];
 
 const fadeInUp = {

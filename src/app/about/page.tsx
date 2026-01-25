@@ -46,7 +46,7 @@ export default function AboutPage() {
                             <div style={{ color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '1.5rem' }}>
                                 <p style={{ marginBottom: '1rem' }}>
                                     The Burujan was born from a collective realization: the digital world is a landscape of towers, built by those who control the code.
-                                    We are four specialists who grew up in the quiet grit of the middle class. We didn't inherit empires; we learned to build them.
+                                    We are five specialists who grew up in the quiet grit of the middle class. We didn't inherit empires; we learned to build them.
                                 </p>
                                 <p>
                                     While others slept, we traded rest for syntax. We founded <strong>The Burujan</strong> to be the bridge between humble roots and celestial heights.
@@ -56,7 +56,7 @@ export default function AboutPage() {
 
                             <div className={styles.visionGrid} style={{ marginTop: '2rem', gridTemplateColumns: '1fr 1fr' }}>
                                 <div>
-                                    <h3 style={{ fontSize: '2.5rem', color: 'var(--primary)' }}>4</h3>
+                                    <h3 style={{ fontSize: '2.5rem', color: 'var(--primary)' }}>5</h3>
                                     <p style={{ color: 'var(--text-secondary)' }}>Specialized Pillars</p>
                                 </div>
                                 <div>

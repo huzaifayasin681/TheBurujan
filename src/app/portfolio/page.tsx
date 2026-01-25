@@ -3,80 +3,73 @@
 import { motion } from 'framer-motion';
 import PageHeader from '@/components/PageHeader';
 import styles from './portfolio.module.css';
-import Link from 'next/link';
-import { Layout, ShieldAlert, GraduationCap, CreditCard, Users, Briefcase, BrainCircuit, Code2, Terminal } from 'lucide-react';
+import { ShieldCheck, Check, Layout, AlertCircle, Database, Server, Smartphone, Globe, Cloud, CircuitBoard } from 'lucide-react';
 
 const fadeInUp = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
-};
-
-const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1
-        }
-    }
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
 };
 
 const projects = [
     {
-        category: 'Systems Architecture',
-        title: 'Burujan CMS: Enterprise Content Engine',
+        category: 'v2.4 RELEASE',
+        title: 'Burujan CMS',
+        subtitle: 'Content Engine',
         description: 'A headless Content Management System engineered for scalability. Decoupled architecture allowing seamless content delivery across web and mobile endpoints.',
         stack: ['Next.js', 'Node.js', 'Express.js', 'Prisma'],
         color: '#D4AF37', // Gold
-        icon: Layout
+        accentColor: '#F6E05E',
+        status: 'Operational'
     },
     {
-        category: 'Cybersecurity',
-        title: 'Sentinel: Vulnerability Scanner',
+        category: 'v1.1 SECURITY',
+        title: 'Sentinel',
+        subtitle: 'Vuln Scanner',
         description: 'Dual-mode (CLI & GUI) Python application for automated security auditing. Scans for SQLi, XSS, and misconfigurations in real-time.',
-        stack: ['Python', 'Tkinter', 'Requests', 'Owasp ZAP'],
-        color: '#E53E3E', // Red for security
-        icon: ShieldAlert
+        stack: ['Python', 'Tkinter', 'Requests', 'OWASP'],
+        color: '#E53E3E', // Red
+        accentColor: '#FC8181',
+        status: 'Active Scanning'
     },
     {
-        category: 'EdTech',
-        title: 'Athena LMS: Learning Management System',
+        category: 'v3.0 RELEASE',
+        title: 'Athena LMS',
+        subtitle: 'Learning Platform',
         description: 'A robust educational platform featuring live classrooms, assignment tracking, and automated grading pipelines.',
-        stack: ['Next.js', 'Python', 'FastAPI', 'PostgreSQL'],
+        stack: ['Next.js', 'FastAPI', 'PostgreSQL', 'Python'],
         color: '#3182CE', // Blue
-        icon: GraduationCap
+        accentColor: '#63B3ED',
+        status: 'Online'
     },
     {
-        category: 'FinTech',
-        title: 'SecureBadge: Card Issuance System',
+        category: 'ENTERPRISE',
+        title: 'SecureBadge',
+        subtitle: 'Issuance System',
         description: 'Secure credential issuance platform for organizations. Handles data encryption, card design generation, and printing workflows.',
-        stack: ['Django', 'Python', 'Pillow', 'Celery'],
+        stack: ['Django', 'Celery', 'Redis', 'Python'],
         color: '#38A169', // Green
-        icon: CreditCard
+        accentColor: '#68D391',
+        status: 'Processing'
     },
     {
-        category: 'Mobile Ecosystem',
-        title: 'CampusConnect: Community Hub',
+        category: 'MOBILE APP',
+        title: 'CampusConnect',
+        subtitle: 'Community Hub',
         description: 'A cross-platform mobile application fostering student engagement through events, forums, and real-time campus updates.',
-        stack: ['Flutter', 'Dart', 'Firebase'],
+        stack: ['Flutter', 'Dart', 'Firebase', 'iOS/Android'],
         color: '#805AD5', // Purple
-        icon: Users
+        accentColor: '#B794F4',
+        status: 'Live on Store'
     },
     {
-        category: 'Mobile Ecosystem',
-        title: 'ClientFolio: Portfolio Manager',
-        description: 'A sleek mobile showcase app allowing agencies to present work offline and online with dynamic syncing.',
-        stack: ['Flutter', 'Dart', 'SQLite'],
-        color: '#DD6B20', // Orange
-        icon: Briefcase
-    },
-    {
-        category: 'AI Solutions',
-        title: 'CareerLens: AI Interviewer',
+        category: 'AI MODULE',
+        title: 'CareerLens',
+        subtitle: 'AI Interviewer',
         description: 'AI-powered interview simulation platform that provides candidate feedback on tone, pacing, and keyword relevance.',
-        stack: ['Next.js', 'OpenAI API', 'Tailwind', 'WebSpeech API'],
+        stack: ['OpenAI API', 'Next.js', 'Tailwind', 'WebSpeech'],
         color: '#00B5D8', // Cyan
-        icon: BrainCircuit
+        accentColor: '#4FD1C5',
+        status: 'Online'
     }
 ];
 
@@ -88,77 +81,103 @@ export default function PortfolioPage() {
                 breadcrumb={[{ label: 'Portfolio', href: '/portfolio' }]}
             />
 
-            <section className="section-padding">
+            <section className="section-padding" style={{ background: '#0b1121' }}>
                 <div className="container">
-                    <p style={{ maxWidth: '700px', margin: '0 auto 4rem auto', textAlign: 'center', color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
-                        A showcase of our engineered systems. From secure backend infrastructures to fluid mobile ecosystems, we build technology that drives authority.
-                    </p>
-
-                    <motion.div
-                        className={styles.grid}
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={staggerContainer}
-                    >
+                    <div className={styles.projectList}>
                         {projects.map((project, index) => (
                             <motion.div
                                 key={index}
-                                className={styles.card}
-                                style={{ border: 'none', background: 'var(--card-bg)', borderRadius: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', overflow: 'hidden' }}
+                                className={styles.projectCard}
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, margin: "-100px" }}
                                 variants={fadeInUp}
-                                whileHover={{ y: -10, transition: { duration: 0.2 } }}
+                                style={{
+                                    '--brand-color': project.color,
+                                    '--brand-glow': `${project.color}40`,
+                                    '--card-accent': project.accentColor
+                                } as React.CSSProperties}
                             >
-                                <div className={styles.imageWrapper} style={{
-                                    background: `${project.color}15`, // Very light opacity of brand color
-                                    padding: '3rem',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    position: 'relative'
-                                }}>
-                                    <span className={styles.category} style={{
-                                        position: 'absolute',
-                                        top: '1.5rem',
-                                        left: '1.5rem',
-                                        background: 'var(--card-bg)',
-                                        color: project.color,
-                                        padding: '0.5rem 1rem',
-                                        borderRadius: '999px',
-                                        fontWeight: '600',
-                                        fontSize: '0.8rem',
-                                        boxShadow: '0 4px 10px rgba(0,0,0,0.05)'
-                                    }}>{project.category}</span>
+                                {/* Left Panel */}
+                                <div className={styles.leftPanel}>
+                                    <div className={styles.releaseBadge}>
+                                        <CircuitBoard size={14} />
+                                        {project.category}
+                                    </div>
+                                    <h2 className={styles.mainTitle}>{project.title}</h2>
+                                    <h3
+                                        className={styles.subTitle}
+                                        style={{
+                                            background: `linear-gradient(to right, ${project.accentColor}, ${project.color})`,
+                                            WebkitBackgroundClip: 'text',
+                                            WebkitTextFillColor: 'transparent'
+                                        }}
+                                    >
+                                        {project.subtitle}
+                                    </h3>
 
-                                    <div style={{ color: project.color, transform: 'scale(1.2)' }}>
-                                        <project.icon size={80} strokeWidth={1} />
+                                    <p className={styles.description}>{project.description}</p>
+
+                                    <div className={styles.stackGrid}>
+                                        {project.stack.map((tech, i) => (
+                                            <div key={i} className={styles.stackItem}>
+                                                <div style={{ width: 6, height: 6, borderRadius: '50%', background: project.color }} />
+                                                {tech}
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-                                <div className={styles.content} style={{ padding: '2.5rem' }}>
-                                    <h3 className={styles.title} style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--foreground)', marginBottom: '1rem' }}>{project.title}</h3>
-                                    <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginBottom: '2rem', lineHeight: '1.7' }}>
-                                        {project.description}
-                                    </p>
 
-                                    <div className={styles.meta} style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', paddingTop: '0', borderTop: 'none' }}>
-                                        {project.stack.map((tech, i) => (
-                                            <span key={i} style={{
-                                                fontSize: '0.8rem',
-                                                background: 'var(--card-bg-hover)',
-                                                padding: '0.4rem 1rem',
-                                                borderRadius: '8px',
-                                                fontWeight: '500',
-                                                color: 'var(--text-secondary)',
-                                                border: '1px solid var(--line-color)'
-                                            }}>
-                                                {tech}
-                                            </span>
-                                        ))}
+                                {/* Right Panel - Abstract UI */}
+                                <div className={styles.rightPanel}>
+                                    <div className={styles.uiContainer}>
+                                        {/* Abstract Sidebar */}
+                                        <div className={styles.uiSidebar}>
+                                            <div className={`${styles.uiNavBubble} ${styles.uiNavActive}`} />
+                                            <div className={styles.uiNavBubble} />
+                                            <div className={styles.uiNavBubble} />
+                                            <div className={styles.uiNavBubble} style={{ marginTop: 'auto' }} />
+                                        </div>
+
+                                        {/* Abstract Main Area */}
+                                        <div className={styles.mainArea}>
+                                            <div className={styles.uiHeader} />
+                                            <div className={styles.uiGrid}>
+                                                <div className={styles.uiCard}>
+                                                    <div className={`${styles.uiCardBlock} ${styles.blockLarge}`} />
+                                                    <div className={`${styles.uiCardBlock} ${styles.blockLine}`} />
+                                                    <div className={`${styles.uiCardBlock} ${styles.blockButton}`} />
+                                                </div>
+                                                <div className={styles.uiCard} style={{ background: 'rgba(255,255,255,0.03)' }}>
+                                                    <div className={`${styles.uiCardBlock} ${styles.blockLarge}`} style={{ background: 'rgba(255,255,255,0.1)' }} />
+                                                    <div className={`${styles.uiCardBlock} ${styles.blockLine}`} />
+                                                </div>
+                                                <div className={styles.uiCard} style={{ background: 'rgba(255,255,255,0.03)' }}>
+                                                    <div className={`${styles.uiCardBlock} ${styles.blockLarge}`} style={{ background: 'rgba(255,255,255,0.1)' }} />
+                                                    <div className={`${styles.uiCardBlock} ${styles.blockButton}`} />
+                                                </div>
+                                                <div className={styles.uiCard}>
+                                                    <div className={`${styles.uiCardBlock} ${styles.blockLarge}`} style={{ background: '#fbbf24' }} /> {/* Amber accent for variance */}
+                                                    <div className={`${styles.uiCardBlock} ${styles.blockLine}`} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Floating Status Badge */}
+                                    <div className={styles.statusFloating}>
+                                        <div className={styles.statusIcon}>
+                                            <Check size={18} strokeWidth={3} />
+                                        </div>
+                                        <div className={styles.statusText}>
+                                            <h4>System Status</h4>
+                                            <span>{project.status}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </motion.div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
         </main>

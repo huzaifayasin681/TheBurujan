@@ -21,7 +21,7 @@ export default function Footer() {
                     <div>
                         <div className={styles.logoContainer}>
                             <Image
-                                src="/images/logo.png"
+                                src="/images/logo_nb.png"
                                 alt="The Burujan Logo"
                                 width={200}
                                 height={200}

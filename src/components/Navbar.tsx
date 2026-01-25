@@ -41,7 +41,7 @@ export default function Navbar() {
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', width: '100%' }}>
         <Link href="/" className={styles.logo} onClick={() => setMobileOpen(false)}>
           <Image
-            src="/images/logo.png"
+            src="/images/logo_nb.png"
             alt="The Burujan Logo"
             width={150}
             height={45}

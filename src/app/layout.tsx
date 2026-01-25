@@ -11,9 +11,9 @@ export const metadata: Metadata = {
   title: "The Burujan | Engineering Digital Empires",
   description: "We build digital fortresses for clients who are ready to rise. Custom Web, Mobile, and DevOps Solutions.",
   icons: {
-    icon: "/images/logo.png",
-    shortcut: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: "/images/logo_nb.png",
+    shortcut: "/images/logo_nb.png",
+    apple: "/images/logo_nb.png",
   },
 };
 

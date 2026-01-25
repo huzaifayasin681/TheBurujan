@@ -2,13 +2,14 @@
 
 import styles from './page.module.css';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, BarChart, Code, Smartphone, Zap, Shield, Database, Cloud, Terminal, Globe, Lock, Cpu } from 'lucide-react';
+import { ArrowRight, BarChart, Code, Smartphone, Zap, Shield, Database, Cloud, Terminal, Globe, Lock, Cpu, Cog } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 import Testimonials from '@/components/Testimonials';
 import Typewriter from '@/components/Typewriter';
+import TechTicker from '@/components/TechTicker';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -229,6 +230,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Tech Stack Ticker */}
+      <TechTicker />
+
       {/* Concept Bar */}
       <motion.div
         style={{ borderBottom: '1px solid var(--card-border)', padding: '2rem 0' }}
@@ -255,7 +259,7 @@ export default function Home() {
             variants={fadeInUp}
           >
             <span className={styles.pillarsSubtitle}>Our Systems</span>
-            <h2 className={styles.pillarsTitle}>The Four Pillars of <br /> Power</h2>
+            <h2 className={styles.pillarsTitle}>The Five Pillars of <br /> Power</h2>
           </motion.div>
 
           <motion.div
@@ -300,6 +304,17 @@ export default function Home() {
               <p className={styles.columnDesc}>Cloud setup, Automated CI/CD Pipelines, Cybersecurity, and AI Automation Agents.</p>
               <Link href="/services" className={styles.columnLink}>Explore <ArrowRight size={16} /></Link>
             </motion.div>
+
+            {/* Column 5 */}
+            <motion.div className={styles.columnItem} variants={fadeInUp}>
+              <span className={styles.columnNumber}>05</span>
+              <div className={styles.columnIcon}><Cog size={40} strokeWidth={1.5} /></div>
+              <h3 className={styles.columnTitle}>Mechanical <br /> Engineer</h3>
+              <p className={styles.columnDesc}>
+                Expertise in CAD Modelling (Solidworks), 3D Printing, Matlab, Webots Simulations, and Product Development.
+              </p>
+              <Link href="/services" className={styles.columnLink}>Explore <ArrowRight size={16} /></Link>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -323,7 +338,7 @@ export default function Home() {
               <span className={styles.statLabel}>Code Ownership</span>
             </motion.div>
             <motion.div variants={fadeInUp}>
-              <span className={styles.statNumber}>4</span>
+              <span className={styles.statNumber}>5</span>
               <span className={styles.statLabel}>Specialist Pillars</span>
             </motion.div>
             <motion.div variants={fadeInUp}>

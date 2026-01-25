@@ -6,9 +6,6 @@ import ThreeParticleLoader from '@/components/ThreeParticleLoader';
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true);
 
-    // You can adjust logic here to wait for actual window load if preferred
-    // but the loader component itself simulates a "system initialization"
-
     return (
         <>
             {loading && (
